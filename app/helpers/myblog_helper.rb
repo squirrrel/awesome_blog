@@ -1,0 +1,2 @@
+module MyblogHelper
+end

@@ -1,0 +1,29 @@
+%html{ :xmlns => "http://www.w3.org/1999/xhtml", :lang => "en", "xml:lang" => "en"}
+ %head
+  %title Myblog
+  %meta{"http-equiv" => "Content-Type", :content => "text/html; charset=utf-8"}
+  %body
+   = link_to('Sign in', {:action => 'signin'})
+   #register_or_signin
+    =form_for(:register, :url =>{:action => 'create'}) do |f|
+     %table
+      %tr
+       %td
+        = f.text_field(:username)
+      %tr
+       %td
+        = f.text_field(:password)
+      %tr
+       %td
+        = flash[:notice].each { |error_msg| error_msg } if !flash[:notice].blank?
+      %tr
+       %td
+        = submit_tag('Get Registered!', :class => 'button')
+
+
+
+ //todo: add 'Confirm password' later if get enough time
+
+
+
+
