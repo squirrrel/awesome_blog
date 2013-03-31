@@ -1,29 +1,27 @@
 %html{ :xmlns => "http://www.w3.org/1999/xhtml", :lang => "en", "xml:lang" => "en"}
  %head
   %title Myblog
+  = stylesheet_link_tag "bootstrap", :media => "all"
   %meta{"http-equiv" => "Content-Type", :content => "text/html; charset=utf-8"}
   %body
-   = link_to('Sign in', {:action => 'signin'})
-   #register_or_signin
-    =form_for(:register, :url =>{:action => 'create'}) do |f|
-     %table
-      %tr
-       %td
-        = f.text_field(:username)
-      %tr
-       %td
-        = f.text_field(:password)
-      %tr
-       %td
-        = flash[:notice].each { |error_msg| error_msg } if !flash[:notice].blank?
-      %tr
-       %td
-        = submit_tag('Get Registered!', :class => 'button')
+  .page-header
+   = link_to('Sign in', {:action => 'signin'}, :class => 'btn ')
+  .register_fuck
+   =form_for(:register, :url =>{:action => 'create'}, :html => {:class => 'form-horizontal register'}) do |f|
+    %div{:class => 'control-group help-inline'}
+     %div{:class => 'controls '}
+      = f.text_field(:username, :placeholder => 'New username...')
+    %div{:class => 'control-group '}
+     %div{:class => 'controls help-inline '}
+      = f.text_field(:password, :placeholder => 'New password...')
+      = flash[:notice].map { |error_msg| error_msg } if !flash[:notice].blank?
+      - flash[:notice] = nil
+    %div{:class => 'control-group'}
+     %div{:class => 'controls'}
+      = submit_tag('Get Registered!', :class => 'btn btn-primary btn-success')
 
 
 
- //todo: add 'Confirm password' later if get enough time
-
-
+ //todo: add 'Confirm password' later if I get enough time
 
 

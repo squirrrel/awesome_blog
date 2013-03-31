@@ -1,21 +1,21 @@
 %html{ :xmlns => "http://www.w3.org/1999/xhtml", :lang => "en", "xml:lang" => "en"}
  %head
   %title Myblog
+  = stylesheet_link_tag "bootstrap", :media => "all"
   %meta{"http-equiv" => "Content-Type", :content => "text/html; charset=utf-8"}
   %body
-   = link_to('Signout', {:action => 'new'})
-   #register_or_signin
-    =form_for(:register, :url =>{:action => 'create'}) do |f|
-     %table
-      %tr
-       %td
-        = f.text_field(:username)
-      %tr
-       %td
-        = f.text_field(:password)
-      %tr
-       %td
-        = flash[:notice].each { |error_msg| error_msg } if !flash[:notice].blank?
-      %tr
-       %td
-        = submit_tag('Sign in', :class => 'button')
+  .page-header
+  .sign_in
+   .title_in
+   =form_for(:register, :url =>{:action => 'create'}) do |f|
+    %div{:class => ''}
+     %div{:class => ''}
+      = f.text_field(:username, :placeholder => 'Username')
+    %div{:class => ''}
+     %div{:class => ''}
+      = f.text_field(:password, :placeholder => 'Password...')
+      = flash[:notice].each { |error_msg| error_msg } if !flash[:notice].blank?
+      - flash[:notice] = nil
+    %div{:class => ''}
+     %div{:class => ''}
+      = submit_tag('Sign in', :class => 'btn btn-primary btn-success')
