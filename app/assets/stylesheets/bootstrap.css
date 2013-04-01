@@ -6281,3 +6281,30 @@ margin-right: auto;
     font-weight: bold;
     font-size: 12px;
 }
+
+.act {  /* Box in the button */
+   display: block;
+   width: 190px;
+ }
+
+ #act a {
+   text-decoration: none;  /* Remove the underline from the links. */
+ }
+
+ #act ul {
+   list-style-type: none;  /* Remove the bullets from the list */
+ }
+
+ #act .top {
+   background-color: #DDD;  /* The button background */
+ }
+
+ #act ul li.item {
+   display: none;  /* By default, do not display the items (which contains the links) */
+ }
+
+ #act ul:hover .item {  /* When the user hovers over the button (or any of the links) */
+   display: block;
+   border: 1px solid black;
+   background-color: #EDC;
+ }

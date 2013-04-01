@@ -18,8 +18,9 @@ class Mes < ActiveRecord::Base
     web_input = Mes.new
     web_input.username = creds[:username]
     web_input.password = creds[:password]
+    @user = web_input
 
-    @user__found = Mes.find_by_username(creds[:username])
+    user__found = Mes.find_by_username(creds[:username])
     hashed_pass = Digest::SHA1.hexdigest(creds[:password])
 
     arr = []
@@ -28,15 +29,15 @@ class Mes < ActiveRecord::Base
 
     if action == 'Sign in'
 
-      if web_input.valid? && @user__found && hashed_pass == @user__found.password && arr.each { |num| num == 1 }
-        true
+      if web_input.valid? && user__found && hashed_pass == user__found.password && arr.each { |num| num == 1 }
+      return  true
       else
-        web_input.errors[:username] + web_input.errors[:password]
+      return  web_input.errors[:username] + web_input.errors[:password]
       end
 
     else
 
-      if web_input.valid? && @user__found == nil && arr.each { |num| num == 0 }
+      if web_input.valid? && user__found == nil && arr.each { |num| num == 0 }
         web_input.password = hashed_pass
         web_input.save
         return true
@@ -46,10 +47,12 @@ class Mes < ActiveRecord::Base
 
     end
 
+
+
   end
 
   def self.current_user
-    @user__found.username
+    @user.username
   end
 
 

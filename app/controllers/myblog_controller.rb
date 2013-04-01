@@ -23,9 +23,11 @@ class MyblogController < ApplicationController
     @register = Mes.new(params[:register])
 
     creds_test = Mes.authenticate(params[:register], params[:commit])
+
     if creds_test == true
       redirect_to(:action => 'blog')
     else
+      p "gigig #{creds_test}"
       flash[:notice] = creds_test
       params[:commit] == 'Sign in' ? (render('signin')) : (render('new'))
     end
@@ -34,15 +36,22 @@ class MyblogController < ApplicationController
 
   def blog
 
-    @user = Mes.find_by_username(Mes.current_user)
-
     @basic_stuff = {}
 
-    @user.blogs.all.each do |bl|
+    user = Mes.find_by_username(Mes.current_user)
+
+    user.blogs.all.each do |bl|
 
       @basic_stuff[bl.blog] = Posts.find_all_by_blog_id(bl.id).map { |pst| pst.title }
 
+  end
+
+    def read_post
+  p params
+
     end
+
+     #todo: in order to render a right post, I first have to pass the clicked_post name as a param or save it as a var and pass straight to the post_view
 
 
     #todo: create action in order to be able to read posts(redirect them to a different page/browser tab/load it on the right in the same window?)
