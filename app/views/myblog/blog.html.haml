@@ -2,24 +2,28 @@
  %head
   %title Myblog
   = stylesheet_link_tag "bootstrap", :media => "all"
+  = javascript_tag
   %meta{"http-equiv" => "Content-Type", :content => "text/html; charset=utf-8"}
   %body
-   = link_to('Signout', {:action => 'new'})
-   .blogs_board
+   .page-header
+    = link_to('Signout', {:action => 'new' }, :class => 'btn btn-link')
+   .ttl
     .actual_content
      - if !@basic_stuff.empty?
       - @basic_stuff.map do |k,v|
-       %strong= k
+       %h3= k
        .posts
         - v.map do |posts|
-         = link_to(posts, {:action => 'read_post'}, :params => posts)
+         = link_to posts, {:controller => 'myblog',:action => 'read_post', :post_name => posts}, :target => '_blank'
      - else
       %strong You've got no Blogs!
     .create_stuff
      %select.left
       %option -- Select option --
-      %option    Create a blog
-      %option    Create a post
+      %option     Create a blog
+      %option     Create a post
+
+
 
 
 

@@ -4,13 +4,14 @@ class Mes < ActiveRecord::Base
 
   has_many :blogs, :foreign_key => 'me_id', :class_name => 'Blogs'
 
+
   validates :password, :presence => {:message => 'Please specify a password'},
             :format => {:with => /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*_?).{7,15}$/, :message =>
-                                                                            'It should contain 7..15 characters and at least one capital letter'}
+                'Please specify a valid password. It should contain 7..15 characters and at least one capital letter'}
 
 
   validates :username, :presence => {:message => 'Please specify a username'},
-            :format => {:with => /^(?=.*[a-z]).{6,10}$/, :message => 'It should contain 6..10 characters'}
+            :format => {:with => /^(?=.*[a-z]).{6,10}$/, :message => 'Please specify a valid username. It should contain 6..10 characters'}
 
 
   def self.authenticate(creds={}, action)
@@ -30,9 +31,9 @@ class Mes < ActiveRecord::Base
     if action == 'Sign in'
 
       if web_input.valid? && user__found && hashed_pass == user__found.password && arr.each { |num| num == 1 }
-      return  true
+        return true
       else
-      return  web_input.errors[:username] + web_input.errors[:password]
+        return web_input.errors[:username] + web_input.errors[:password]
       end
 
     else
@@ -46,7 +47,6 @@ class Mes < ActiveRecord::Base
       end
 
     end
-
 
 
   end

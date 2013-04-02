@@ -1,3 +1,6 @@
+require 'date'
+require 'time'
+
 class MyblogController < ApplicationController
 
   layout 'application'
@@ -27,7 +30,7 @@ class MyblogController < ApplicationController
     if creds_test == true
       redirect_to(:action => 'blog')
     else
-      p "gigig #{creds_test}"
+
       flash[:notice] = creds_test
       params[:commit] == 'Sign in' ? (render('signin')) : (render('new'))
     end
@@ -40,29 +43,31 @@ class MyblogController < ApplicationController
 
     user = Mes.find_by_username(Mes.current_user)
 
-    user.blogs.all.each do |bl|
+    if user
+      user.blogs.all.each do |bl|
 
-      @basic_stuff[bl.blog] = Posts.find_all_by_blog_id(bl.id).map { |pst| pst.title }
+        @basic_stuff[bl.blog] = Posts.find_all_by_blog_id(bl.id).map { |pst| pst.title }
 
-  end
-
-    def read_post
-  p params
-
+      end
     end
 
-     #todo: in order to render a right post, I first have to pass the clicked_post name as a param or save it as a var and pass straight to the post_view
+    def read_post
 
+      pst = Posts.find_all_by_title(params[:post_name])[0]
+      @title = pst.title
+      @date = pst.created_at.strftime('%d/%m/%Y %T')
+      @contents = pst.post
+    end
 
+    render('blog')
+  end
+
+end
+
+    #todo: in order to render a right post, I first have to pass the clicked_post name as a param or save it as a var and pass straight to the post_view
     #todo: create action in order to be able to read posts(redirect them to a different page/browser tab/load it on the right in the same window?)
     #todo: the 'Add' button right below the blogs list with a drop-down. After choosing an option, a corresponding form
     #todo: will be shown to basically create either a blog or add a post to the existent one
     #todo: wanna a script that will expand/collapse the blogs to hide/show their related posts
     #todo: upload a pic functionality
     #todo: show other guys from the sys
-
-
-    render('blog')
-  end
-
-end

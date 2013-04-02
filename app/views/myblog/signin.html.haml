@@ -5,6 +5,7 @@
   %meta{"http-equiv" => "Content-Type", :content => "text/html; charset=utf-8"}
   %body
   .page-header
+   = link_to('Get Registered!', {:action => 'new'}, :class => 'btn btn-link')
   .sign_in
    .title_in
    =form_for(:register, :url =>{:action => 'create'}) do |f|
